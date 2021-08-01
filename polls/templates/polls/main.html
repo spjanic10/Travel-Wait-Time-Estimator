@@ -1,0 +1,48 @@
+
+{% extends 'baseDesktop.html' %}
+    
+
+<title>
+{% block title %}
+Calculate Travel Time
+{% endblock title %}
+</title>
+
+
+
+
+{% block content %}
+
+
+
+<form align=center  id="myForm" action="" method="POST" autocomplete="off" >
+    {% csrf_token %}
+
+    
+    <br><br>
+    {{form.location}}
+    <br><br>
+    
+    {{form.destination}}
+    <br> <br>
+    <p>Travel Mode:<br></p>
+    {{form.travel_mode}}
+    <br> <br>
+    
+    <button  type="submit" form="myForm">Confirm<span></span></button>
+    <br> <br>
+    {{error_msg}}
+    <hr>
+    {{travel_time}}
+    <br>
+    <br>
+    {{wait_time}}
+</form>
+
+
+
+
+
+
+{% endblock content %}
+    

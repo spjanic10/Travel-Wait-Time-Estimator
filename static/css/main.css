@@ -1,0 +1,104 @@
+*{
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+*:focus{
+    box-shadow: 0 0 10px 5px #800080;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    color: purple;
+    border-radius: 25px;
+}
+
+h1 {
+    text-align: center;
+    color: purple;
+    font-size: 35px;
+}
+#id_travel_mode {
+    color: white;
+    background-color: purple;
+}
+
+button[type=submit] {
+    background-color: purple;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    text-align: center;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: all 0.3s;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 20px;
+}
+
+button[type=submit]:hover {
+    opacity: 1
+}
+
+button[type=submit] span {
+    position: relative;
+    transition: 0.3s;
+}
+
+button[type=submit] span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.3s;
+}
+
+button[type=submit]:hover span {
+    padding-right: 25px;
+}
+
+button[type=submit]:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+input[type=text] {
+    background-color: #460046;
+    color: #ffffff;
+    outline: 0;
+    padding: 10px;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+input[type=text]:not(:placeholder-shown){
+    background-color: #800080;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    outline: 0;
+    padding: 10px;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+
+select{
+    padding-left: 5px;
+    border-radius: 25px;
+    outline: 0;
+}
+
+/* Optional: Makes the sample page fill the window. */
+html, 
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(10, 0, 10);
+    color: white;
+}
+.wrapper {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    height: 100%;
+}

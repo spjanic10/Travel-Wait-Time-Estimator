@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU30YUEBXkqEo5ic6WLr_nRnMroSXNHbg&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <style type="text/css">
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 50%;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+     <script>
+      let map;
+      let markers = [];
+      var geocoder;
+      function initMap() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(43.6546390481, -79.3747718342);
+        var mapOptions = {
+          zoom: 17,
+          center: latlng }
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+      }
+
+      // Using Geocode to put marker of an address on the map
+      function codeAddress() {
+        clearMarkers()
+        var address = "{{ destination_address }}"
+        geocoder.geocode( { 'address': address}, function(results, status) {
+          if (status == 'OK') {
+            map.setCenter(results[0].geometry.location);
+            addMarker(results[0].geometry.location);
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+      
+      // Adds a marker to the map and push to the array.
+      function addMarker(location){
+        const marker = new google.maps.Marker({
+          position: location,
+          map: map,
+        });
+        markers.push(marker);
+      }
+      
+      // Clears all Markers
+      function clearMarkers(){
+        for (let i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+		markers = [];
+      }
+    </script>
+  </head>
+  <body onload="initMap()">
+    <!-- Remove input fields when done testing -->
+	<div>
+      
+      <input type="button" value="Encode" onclick="codeAddress()">
+      <input type="button" value="Clear" onclick="clearMarkers()">
+    </div>
+    <div id="map"></div>
+  </body>
+</html>
+ 

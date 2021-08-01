@@ -1,0 +1,47 @@
+
+{% extends 'baseMobile.html' %}
+    
+
+<title>
+{% block title %}
+Calculate Travel Time
+{% endblock title %}
+</title>
+
+
+
+
+{% block content %}
+
+<hr>
+<form align=center  id="myForm" action="" method="POST" autocomplete="off" >
+    
+    <p>Start Location:<br></p>
+    {{form.location}}
+    <br><br>
+    <p>Destination:<br></p>
+    {{form.destination}}
+    <br> <br>
+    <p>Travel Mode:<br></p>
+    {{form.travel_mode}}
+    <br> <br>
+    {% csrf_token %}
+    <button  type="submit" form="myForm">Confirm</button>
+    <br><br>
+    {{error_msg}}
+    <hr>
+    {{travel_time}}
+    <br>
+    <br>
+    {{wait_time}}
+    
+</form>
+
+
+
+
+
+
+{% endblock content %}
+
+    

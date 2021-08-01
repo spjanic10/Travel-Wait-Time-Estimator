@@ -1,0 +1,131 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+    <title>NotifyMe | {% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBYe9TmWwVat5DgLSgHhtvv5c-zZcCTZg&map_ids=36591ba960ed33ae&callback=initMap&libraries=&v=weekly"
+    defer
+  ></script>
+  
+  <script
+    
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBYe9TmWwVat5DgLSgHhtvv5c-zZcCTZg&map_ids=36591ba960ed33ae&libraries=places&callback=initAutocomplete"
+    async defer
+
+  ></script>
+
+    
+     <script>
+      
+      function initMap() {
+        var lat="{{ lat }}";
+        var lng="{{ lng }}";
+        var waitTime="{{ time_only }}";
+        var travelTime="{{ travel_time }}"
+        
+
+        var latlng = new google.maps.LatLng(lat, lng);
+        var mapOptions = {
+          zoom: 17,
+          center: latlng,
+          mapId: '36591ba960ed33ae'}
+        map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        if(lat!=43.65362618163458&&lng!=-79.3840793723362){
+        var marker = new google.maps.Marker({
+        position: latlng,
+        label: waitTime,
+        });
+
+        // To add the marker to the map, call setMap();
+        marker.setMap(map);
+
+        const infowindow = new google.maps.InfoWindow({
+          content: travelTime,
+        });
+        infowindow.open(map,marker);
+        marker.addListener("click", () => {
+          infowindow.open(map, marker);
+        });}
+
+
+      }
+    
+    </script>
+    <script>
+      
+       let autocomplete;
+       const center = { lat: 43.65362618163458, lng: -79.3840793723362 };
+
+       const defaultBounds = {
+        north: center.lat + 2,
+        south: center.lat -2,
+        east: center.lng + 2,
+        west: center.lng - 2,
+      };
+
+     
+      function initAutocomplete(){
+        autocomplete=new google.maps.places.Autocomplete(
+          document.getElementById('id_location'),
+          {
+            bounds: defaultBounds,
+            strictBounds: true,
+            types: ['establishment'],
+            componentRestrictions: {'country': ['CA']},
+            fields: ['place_id', 'geometry', 'name']
+          }
+        );
+        
+        let autocomplete1;
+     
+      
+        autocomplete1=new google.maps.places.Autocomplete(
+          document.getElementById('id_destination'),
+          {
+            bounds: defaultBounds,
+            strictBounds: true,
+            types: ['establishment'],
+            componentRestrictions: {'country': ['CA']},
+            fields: ['place_id', 'geometry', 'name']
+          }
+        );
+        
+       
+      }
+      
+     
+    </script>
+    
+  
+  </head>
+  <body onload="initMap()">
+    <h1>Real-time End-to-End Travel and Wait Time Estimator</h1>
+    <div class="container">
+      
+        {% block content %}
+          
+        {% endblock content %}
+        <br><br>
+        
+   
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+   
+    
+    <div id="map"></div>
+    
+  </body>
+</html>
